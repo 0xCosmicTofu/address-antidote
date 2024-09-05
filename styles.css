@@ -1,41 +1,131 @@
 body {
-    width: 300px;
-    padding: 10px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    font-size: 18px;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    width: 100%;
-  }
-  
-  .crypto-address-notification {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    z-index: 9999;
-  }
-  
-  .crypto-address-notification.valid {
-    background-color: #4CAF50;
-  }
-  
-  .crypto-address-notification.invalid {
-    background-color: #F44336;
-  }
-  
-  .icon {
-    margin-right: 5px;
-  }
+  width: 400px;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sticky-container {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 16px 20px;
+  z-index: 10;
+}
+
+.sticky-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #ccc;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sticky-container.scrolled::after {
+  opacity: 1;
+}
+
+.input-container {
+  display: flex;
+  gap: 12px;
+}
+
+#addressInput {
+  flex-grow: 1;
+  height: 48px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+}
+
+#saveButton {
+  height: 48px;
+  padding: 0 15px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+#savedAddresses {
+  padding: 0 20px 20px;
+}
+
+#savedAddressesList {
+  margin-top: 5px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.address-item {
+  margin-bottom: 15px;
+  word-break: break-all;
+}
+
+.address-tag {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+.ethereum-tag {
+  background-color: #3498db;
+  color: white;
+}
+
+.solana-tag {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.unknown-tag {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.address-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.wallet-address {
+  flex-grow: 1;
+  margin-right: 10px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.delete-button svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #e74c3c;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
