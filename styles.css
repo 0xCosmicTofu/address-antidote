@@ -1,19 +1,23 @@
 body {
   width: 400px;
-  height: 600px;
+  min-height: 300px;
+  max-height: 600px;
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
 }
 
 .sticky-container {
   position: sticky;
   top: 0;
   background-color: #fff;
-  padding: 16px 20px;
+  padding: 24px 20px;
   z-index: 10;
 }
 
@@ -35,7 +39,7 @@ body {
 
 .input-container {
   display: flex;
-  gap: 12px;
+  gap: 4px;
 }
 
 #addressInput {
@@ -43,7 +47,7 @@ body {
   height: 48px;
   padding: 0 10px;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 56px;
   font-size: 16px;
   border: 1px solid #ccc;
 }
@@ -56,11 +60,13 @@ body {
   color: white;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 56px;
 }
 
 #savedAddresses {
   padding: 0 20px 20px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 #savedAddressesList {
@@ -70,16 +76,17 @@ body {
 }
 
 .address-item {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   word-break: break-all;
 }
 
 .address-tag {
   display: inline-block;
   padding: 2px 5px;
-  border-radius: 3px;
+  border-radius: 56px;
   font-size: 0.8em;
   margin-bottom: 5px;
+  text-transform: uppercase;
 }
 
 .ethereum-tag {
@@ -89,12 +96,12 @@ body {
 
 .solana-tag {
   background-color: #2ecc71;
-  color: white;
+  color: black;
 }
 
 .unknown-tag {
   background-color: #95a5a6;
-  color: white;
+  color: black;
 }
 
 .address-line {
@@ -118,6 +125,7 @@ body {
   padding: 0;
   width: 24px;
   height: 24px;
+  border-radius: 56px;
 }
 
 .delete-button svg {
@@ -128,4 +136,55 @@ body {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  border-radius: 56px;
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+}
+
+.tab-button {
+  flex-grow: 1;
+  padding: 8px 0; /*Adjust vertical padding as needed*/
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+  text-align: center; /* Center text horizontally */
+  display: flex; /* Use flexbox for vertical centering */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  width: 33.33%; /* Assumes 3 tabs */
+
+}
+
+.tab-button.active {
+  color: white;
+  border-radius: 56px;
+}
+
+.tab-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 33.33%; /* Assumes 3 tabs */
+  background-color: #4CAF50;
+  transition: transform 0.3s ease;
+  border-radius: 56px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex-grow: 1;
 }

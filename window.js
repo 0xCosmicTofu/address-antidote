@@ -27,6 +27,40 @@ document.addEventListener('DOMContentLoaded', function() {
     return 'Unknown';
   }
 
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabSlider = document.querySelector('.tab-slider');
+  let currentFilter = 'all';
+
+  function updateTabSlider(button) {
+    const index = Array.from(tabButtons).indexOf(button);
+    tabSlider.style.transform = `translateX(${index * 100}%)`;
+  }
+
+  function filterAddresses() {
+    const addresses = document.querySelectorAll('.address-item');
+    addresses.forEach(address => {
+      const addressType = address.querySelector('.address-tag').textContent.toLowerCase();
+      if (currentFilter === 'all' || addressType === currentFilter) {
+        address.style.display = '';
+      } else {
+        address.style.display = 'none';
+      }
+    });
+  }
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      currentFilter = this.dataset.filter;
+      updateTabSlider(this);
+      filterAddresses();
+    });
+  });
+
+  // Initialize slider position
+  updateTabSlider(document.querySelector('.tab-button.active'));
+
   function displaySavedAddresses() {
     chrome.storage.sync.get(['savedAddresses'], function(result) {
       const addresses = result.savedAddresses || [];
@@ -55,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
           savedAddressesList.appendChild(li);
         });
         addDeleteListeners();
+        filterAddresses();
       } else {
         savedAddresses.style.display = 'none';
       }

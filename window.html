@@ -10,10 +10,17 @@
       <input type="text" id="addressInput" placeholder="Enter crypto address">
       <button id="saveButton">Save</button>
     </div>
+    <div class="tab-container">
+      <div class="tab-slider"></div>
+      <button class="tab-button active" data-filter="all">All</button>
+      <button class="tab-button" data-filter="ethereum">Ethereum</button>
+      <button class="tab-button" data-filter="solana">Solana</button>
+    </div>
   </div>
-  <div id="savedAddresses">
-    <h3>Saved Addresses:</h3>
-    <ul id="savedAddressesList"></ul>
+  <div class="content-wrapper">
+    <div id="savedAddresses">
+      <ul id="savedAddressesList"></ul>
+    </div>
   </div>
   <script src="window.js"></script>
 </body>
