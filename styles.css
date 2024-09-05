@@ -4,11 +4,11 @@ body {
   max-height: 600px;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   display: flex;
   flex-direction: column;
 }
@@ -16,7 +16,7 @@ body {
 .sticky-container {
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #f4f4f4;
   padding: 24px 20px;
   z-index: 10;
 }
@@ -45,19 +45,26 @@ body {
 #addressInput {
   flex-grow: 1;
   height: 48px;
-  padding: 0 10px;
+  padding: 0 16px;
   box-sizing: border-box;
   border-radius: 56px;
   font-size: 16px;
   border: 1px solid #ccc;
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+}
+
+#addressInput:focus {
+  border: 1px solid black;
 }
 
 #saveButton {
   height: 48px;
   padding: 0 15px;
   border: none;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #fff;
+  border: 1px solid black;
+  color: black;
   font-size: 16px;
   cursor: pointer;
   border-radius: 56px;
@@ -76,8 +83,26 @@ body {
 }
 
 .address-item {
-  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 4px;
   word-break: break-all;
+  padding: 12px 12px;
+  background-color: #fff;
+  border-radius: 16px;
+}
+
+.address-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-address {
+  font-family: monospace;
+  font-size: 14px;
+  margin-bottom: 8px; /* Add some space between the address and the tag */
 }
 
 .address-tag {
@@ -85,37 +110,32 @@ body {
   padding: 2px 5px;
   border-radius: 56px;
   font-size: 0.8em;
-  margin-bottom: 5px;
   text-transform: uppercase;
+  width: fit-content;
 }
 
 .ethereum-tag {
-  background-color: #3498db;
-  color: white;
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
 }
 
 .solana-tag {
-  background-color: #2ecc71;
+  background-color: transparent;
+  border: 1px solid black;
   color: black;
 }
 
 .unknown-tag {
-  background-color: #95a5a6;
+  background-color: transparent;
+  border: 1px solid black;
   color: black;
 }
 
 .address-line {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-}
-
-.wallet-address {
-  flex-grow: 1;
-  margin-right: 10px;
-  font-family: monospace;
-  font-size: 14px;
 }
 
 .delete-button {
@@ -123,14 +143,16 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 56px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-button svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   fill: none;
   stroke: #e74c3c;
   stroke-width: 2;
@@ -143,9 +165,10 @@ body {
   justify-content: space-between;
   margin-top: 16px;
   border-radius: 56px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   height: 40px;
+  width: 100%;
 }
 
 .tab-button {
@@ -163,12 +186,15 @@ body {
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   width: 33.33%; /* Assumes 3 tabs */
+  border-radius: 56px;
 
 }
 
 .tab-button.active {
-  color: white;
+  color: black;
+  background-color: transparent;
   border-radius: 56px;
+  width: 33.33%
 }
 
 .tab-slider {
@@ -177,9 +203,10 @@ body {
   left: 0;
   height: 40px;
   width: 33.33%; /* Assumes 3 tabs */
-  background-color: #4CAF50;
+  background-color: #fff;
   transition: transform 0.3s ease;
   border-radius: 56px;
+  border: 1px solid black;
 }
 
 .content-wrapper {
