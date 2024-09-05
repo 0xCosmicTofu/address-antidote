@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Crypto Address Validator",
+  "name": "Address Antidote",
   "version": "1.0",
   "description": "Validates Solana and Ethereum addresses when copied",
   "permissions": [
@@ -14,7 +14,7 @@
       "48": "icon48.png",
       "128": "icon128.png"
     },
-    "default_title": "Crypto Address Validator"
+    "default_title": "Address Antidote"
   },
   "background": {
     "service_worker": "background.js"

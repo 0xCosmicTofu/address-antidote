@@ -1,4 +1,4 @@
-console.log("Crypto Address Validator content script loaded");
+console.log("Address Antidote content script loaded");
 
 let isExtensionValid = true;
 
