@@ -1,13 +1,8 @@
 console.log("Background script loaded");
 
-const initialAddresses = [
-  "FoAQ4pZiSDNyn7xtgL1LmpaZAvyTNZEKXHsYsxfEjuH1",  // Solana address
-  "0x3b3496De6dd5A12a3FAc430fAB1cbB68FaE5eFc8"     // Ethereum address
-];
-
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ savedAddresses: initialAddresses }, () => {
-    console.log("Initial addresses saved:", initialAddresses);
+  chrome.storage.sync.set({ savedAddresses: [] }, () => {
+    console.log("Initial empty address list saved");
   });
 });
 
@@ -17,10 +12,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.storage.sync.get("savedAddresses", (data) => {
       const savedAddresses = data.savedAddresses || [];
       console.log("Saved addresses:", savedAddresses);
-      const isValid = savedAddresses.includes(request.address);
+      
       const addressType = getAddressType(request.address);
-      console.log("Validation result:", { isValid, addressType });
-      sendResponse({ isValid, addressType });
+      const isValid = addressType !== "Unknown";
+      const isMatched = savedAddresses.includes(request.address);
+      const hasSavedAddresses = savedAddresses.length > 0;
+      
+      console.log("Validation result:", { isValid, isMatched, addressType, hasSavedAddresses });
+      sendResponse({ isValid, isMatched, addressType, hasSavedAddresses });
     });
     return true;
   }
@@ -34,3 +33,12 @@ function getAddressType(address) {
   }
   return "Unknown";
 }
+
+chrome.action.onClicked.addListener((tab) => {
+  chrome.windows.create({
+    url: chrome.runtime.getURL("window.html"),
+    type: "popup",
+    width: 400,
+    height: 600
+  });
+});
