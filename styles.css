@@ -1,0 +1,41 @@
+body {
+    width: 300px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  .crypto-address-notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    z-index: 9999;
+  }
+  
+  .crypto-address-notification.valid {
+    background-color: #4CAF50;
+  }
+  
+  .crypto-address-notification.invalid {
+    background-color: #F44336;
+  }
+  
+  .icon {
+    margin-right: 5px;
+  }
