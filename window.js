@@ -168,6 +168,12 @@ const DONATION_ADDRESSES = {
   SOL: '9wNm432jYoBQkd6UXwA6dt7vJSAyvBVtn4TWkq1sZxxA'
 };
 
+// New constant for donation coins
+const DONATION_COINS = {
+  ETH: 'ETH',
+  SOL: 'SOL'
+};
+
 // Donation modal functionality
 function showDonationModal(coin, address) {
   console.log(`Showing ${coin} donation modal for address: ${address}`);
@@ -177,12 +183,13 @@ function showDonationModal(coin, address) {
   const modalAddress = document.getElementById('modalAddress');
   const qrCode = document.getElementById('qrCode');
   
-  if (modalTitle) modalTitle.textContent = `Donate your ${coin}`;
+  if (modalTitle) modalTitle.textContent = `Tip me in ${coin}`;
   if (modalAddress) modalAddress.textContent = address;
   if (qrCode) qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${address}`;
   
   if (donationModal) {
     donationModal.classList.remove('hidden');
+    document.body.classList.add('modal-open');  // Add this line
   } else {
     console.error('Donation modal not found');
   }
@@ -198,7 +205,7 @@ function setupDonationButtons() {
   if (ethButton) {
     ethButton.addEventListener('click', () => {
       console.log('Ethereum button clicked');
-      showDonationModal('Ethereum', DONATION_ADDRESSES.ETH);
+      showDonationModal(DONATION_COINS.ETH, DONATION_ADDRESSES.ETH);
     });
   } else {
     console.error('Ethereum button not found');
@@ -207,7 +214,7 @@ function setupDonationButtons() {
   if (solButton) {
     solButton.addEventListener('click', () => {
       console.log('Solana button clicked');
-      showDonationModal('Solana', DONATION_ADDRESSES.SOL);
+      showDonationModal(DONATION_COINS.SOL, DONATION_ADDRESSES.SOL);
     });
   } else {
     console.error('Solana button not found');
@@ -225,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       donationModal.addEventListener('click', (event) => {
         if (event.target === donationModal) {
           donationModal.classList.add('hidden');
+          document.body.classList.remove('modal-open');  // Add this line
         }
       });
     }
