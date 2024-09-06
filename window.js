@@ -113,10 +113,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function showNotification(message) {
-    notification.textContent = message;
-    notification.classList.remove('hidden');
+    const notification = document.getElementById('notification');
+    if (!notification) {
+      const newNotification = document.createElement('div');
+      newNotification.id = 'notification';
+      newNotification.className = 'notification hidden';
+      document.body.appendChild(newNotification);
+    }
+    
+    const notificationElement = document.getElementById('notification');
+    notificationElement.textContent = message;
+    notificationElement.classList.remove('hidden');
+    
     setTimeout(() => {
-      notification.classList.add('hidden');
+      notificationElement.classList.add('hidden');
     }, 3000); // Hide after 3 seconds
   }
 
