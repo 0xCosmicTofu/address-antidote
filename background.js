@@ -1,3 +1,5 @@
+/* Address Antidote - Version 1.0 */
+
 console.log("Background script loaded");
 
 chrome.runtime.onInstalled.addListener(() => {

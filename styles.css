@@ -1,3 +1,5 @@
+/* Address Antidote - Version 1.0 */
+
 body {
   position: relative;
   width: 400px;
@@ -262,8 +264,8 @@ body {
 }
 
 .footer-text {
-  color: black;
-  font-size: 14px;
+  color: rgb(162, 162, 162);
+  font-size: 12px;
   line-height: 32px; /* Match the height of the footer for vertical centering */
 }
 

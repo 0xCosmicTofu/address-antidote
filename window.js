@@ -1,3 +1,5 @@
+/* Address Antidote - Version 1.0 */
+
 function handleScroll() {
   const stickyContainer = document.querySelector('.sticky-container');
   if (window.scrollY > 0) {
