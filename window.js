@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const saveButton = document.getElementById('saveButton');
   const savedAddresses = document.getElementById('savedAddresses');
   const savedAddressesList = document.getElementById('savedAddressesList');
+  const notification = document.getElementById('notification');
 
   function isValidEthereumAddress(address) {
     return /^0x[a-fA-F0-9]{40}$/.test(address);
@@ -78,12 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <span class="address-tag ${addressType.toLowerCase()}-tag">${addressType}</span>
             </div>
             <button class="delete-button" data-address="${address}">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                <line x1="10" y1="11" x2="10" y2="17"></line>
-                <line x1="14" y1="11" x2="14" y2="17"></line>
-              </svg>
+              ${deleteIcon}
             </button>
           `;
           savedAddressesList.appendChild(li);
@@ -116,12 +112,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function showNotification(message) {
+    notification.textContent = message;
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+      notification.classList.add('hidden');
+    }, 3000); // Hide after 3 seconds
+  }
+
   saveButton.addEventListener('click', function() {
     const address = addressInput.value.trim();
     if (address) {
       chrome.storage.sync.get(['savedAddresses'], function(result) {
         const savedAddresses = result.savedAddresses || [];
-        if (!savedAddresses.includes(address)) {
+        if (savedAddresses.includes(address)) {
+          showNotification('This address is already saved.');
+        } else {
           savedAddresses.push(address);
           chrome.storage.sync.set({savedAddresses: savedAddresses}, function() {
             addressInput.value = '';
@@ -136,3 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', handleScroll);
 });
+
+const deleteIcon = `
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.25 4.5H3.75C3.55109 4.5 3.36032 4.57902 3.21967 4.71967C3.07902 4.86032 3 5.05109 3 5.25C3 5.44891 3.07902 5.63968 3.21967 5.78033C3.36032 5.92098 3.55109 6 3.75 6H4.5V19.5C4.5 19.8978 4.65804 20.2794 4.93934 20.5607C5.22064 20.842 5.60218 21 6 21H18C18.3978 21 18.7794 20.842 19.0607 20.5607C19.342 20.2794 19.5 19.8978 19.5 19.5V6H20.25C20.4489 6 20.6397 5.92098 20.7803 5.78033C20.921 5.63968 21 5.44891 21 5.25C21 5.05109 20.921 4.86032 20.7803 4.71967C20.6397 4.57902 20.4489 4.5 20.25 4.5ZM18 19.5H6V6H18V19.5ZM7.5 2.25C7.5 2.05109 7.57902 1.86032 7.71967 1.71967C7.86032 1.57902 8.05109 1.5 8.25 1.5H15.75C15.9489 1.5 16.1397 1.57902 16.2803 1.71967C16.421 1.86032 16.5 2.05109 16.5 2.25C16.5 2.44891 16.421 2.63968 16.2803 2.78033C16.1397 2.92098 15.9489 3 15.75 3H8.25C8.05109 3 7.86032 2.92098 7.71967 2.78033C7.57902 2.63968 7.5 2.44891 7.5 2.25Z" fill="black"/>
+</svg>
+
+`;
