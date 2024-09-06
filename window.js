@@ -159,3 +159,87 @@ const deleteIcon = `
 </svg>
 
 `;
+
+// Configuration
+const DONATION_ADDRESSES = {
+  ETH: '0xf5bc2558BA3Ca46ec990976479Bf77107307b2a7',
+  SOL: '9wNm432jYoBQkd6UXwA6dt7vJSAyvBVtn4TWkq1sZxxA'
+};
+
+// Donation modal functionality
+function showDonationModal(coin, address) {
+  console.log(`Showing ${coin} donation modal for address: ${address}`);
+  
+  const donationModal = document.getElementById('donationModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalAddress = document.getElementById('modalAddress');
+  const qrCode = document.getElementById('qrCode');
+  
+  if (modalTitle) modalTitle.textContent = `Donate your ${coin}`;
+  if (modalAddress) modalAddress.textContent = address;
+  if (qrCode) qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${address}`;
+  
+  if (donationModal) {
+    donationModal.classList.remove('hidden');
+  } else {
+    console.error('Donation modal not found');
+  }
+}
+
+function setupDonationButtons() {
+  const ethButton = document.getElementById('ethButton');
+  const solButton = document.getElementById('solButton');
+
+  console.log('ethButton:', ethButton);
+  console.log('solButton:', solButton);
+
+  if (ethButton) {
+    ethButton.addEventListener('click', () => {
+      console.log('Ethereum button clicked');
+      showDonationModal('Ethereum', DONATION_ADDRESSES.ETH);
+    });
+  } else {
+    console.error('Ethereum button not found');
+  }
+
+  if (solButton) {
+    solButton.addEventListener('click', () => {
+      console.log('Solana button clicked');
+      showDonationModal('Solana', DONATION_ADDRESSES.SOL);
+    });
+  } else {
+    console.error('Solana button not found');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Delay setup to ensure all elements are loaded
+  setTimeout(() => {
+    console.log('Setting up donation buttons');
+    setupDonationButtons();
+    
+    const donationModal = document.getElementById('donationModal');
+    if (donationModal) {
+      donationModal.addEventListener('click', (event) => {
+        if (event.target === donationModal) {
+          donationModal.classList.add('hidden');
+        }
+      });
+    }
+
+    const copyAddressBtn = document.getElementById('copyAddress');
+    if (copyAddressBtn) {
+      copyAddressBtn.addEventListener('click', () => {
+        const modalAddress = document.getElementById('modalAddress');
+        if (modalAddress) {
+          navigator.clipboard.writeText(modalAddress.textContent).then(() => {
+            showNotification('Address copied to clipboard');
+          });
+        }
+      });
+    }
+  }, 100);
+});
+
+// For debugging
+console.log('window.js loaded');
