@@ -64,7 +64,7 @@ function showNotification(isMatched, addressType) {
   notification.style.left = '50%';
   notification.style.transform = 'translateX(-50%)';
   notification.style.padding = '10px 20px';
-  notification.style.borderRadius = '16px';
+  notification.style.borderRadius = '8px';
   notification.style.zIndex = '9999';
   notification.style.textAlign = 'center';
   notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
