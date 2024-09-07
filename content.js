@@ -1,5 +1,3 @@
-console.log("Address Antidote content script loaded");
-
 let isExtensionValid = true;
 
 const svgIcons = {
@@ -21,54 +19,44 @@ function isValidBlockchainAddress(text) {
 }
 
 function validateAddress(text) {
-  console.log("Validating address:", text);
   
   if (!isExtensionValid) {
-    console.log("Extension context is invalid. Please refresh the page.");
     showNotification(false, "Error: Extension reloaded. Please refresh the page.");
     return;
   }
 
   if (!isValidBlockchainAddress(text)) {
-    console.log("Not a valid Ethereum or Solana address, skipping validation");
     return;
   }
 
   try {
     chrome.runtime.sendMessage({ action: "validateAddress", address: text }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error("Error sending message:", chrome.runtime.lastError);
         handleExtensionInvalidation();
         return;
       }
-      console.log("Validation response:", response);
       
       if (!response.hasSavedAddresses) {
-        console.log("No saved addresses, skipping validation");
         return;
       }
       
       if (response.isValid) {
         showNotification(response.isMatched, response.addressType);
       } else {
-        console.log("Address not recognized as Solana or Ethereum");
         showNotification(false, "Unknown");
       }
     });
   } catch (error) {
-    console.error("Unexpected error:", error);
     handleExtensionInvalidation();
   }
 }
 
 function handleExtensionInvalidation() {
   isExtensionValid = false;
-  console.log("Extension context invalidated. Please refresh the page.");
   showNotification(false, "Error: Extension reloaded. Please refresh the page.");
 }
 
 function showNotification(isMatched, addressType) {
-  console.log("Showing notification:", isMatched, addressType);
   const notification = document.createElement('div');
   notification.className = `crypto-address-notification ${isMatched ? 'matched' : 'not-matched'}`;
   notification.style.position = 'fixed';
@@ -131,11 +119,9 @@ function showNotification(isMatched, addressType) {
 function handleCopy(e) {
   if (!isExtensionValid) return;
   
-  console.log("Copy event detected");
   setTimeout(() => {
     const selection = document.getSelection();
     const selectedText = selection.toString().trim();
-    console.log("Selected text:", selectedText);
     if (selectedText) {
       validateAddress(selectedText);
     }
@@ -146,7 +132,6 @@ function handleCustomCopy(event) {
   if (!isExtensionValid) return;
   
   if (event.data && event.data.type === 'CUSTOM_COPY') {
-    console.log("Custom copy detected:", event.data.text);
     validateAddress(event.data.text);
   }
 }
@@ -159,7 +144,6 @@ script.src = chrome.runtime.getURL('contentScript.js');
 
 window.addEventListener('message', handleCustomCopy);
 
-console.log("Copy event listeners and custom copy interceptor set up");
 
 setInterval(() => {
   if (!isExtensionValid) return;
