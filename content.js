@@ -1,3 +1,8 @@
+// Address Antidote: Cryptocurrency Address Validator
+// This content script runs on all pages but only activates on copy events.
+// It exclusively processes text that matches Ethereum (0x...) or Solana (base58, 32-44 chars) address formats.
+// No other page content is ever processed or stored.
+
 let isExtensionValid = true;
 
 const svgIcons = {
@@ -12,7 +17,9 @@ const svgIcons = {
 };
 
 function isValidBlockchainAddress(text) {
+    // Ethereum address regex (simple version)  
   const ethereumRegex = /^0x[a-fA-F0-9]{40}$/;
+  // Solana address regex (base58, 32-44 chars)
   const solanaRegex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
   
   return ethereumRegex.test(text) || solanaRegex.test(text);

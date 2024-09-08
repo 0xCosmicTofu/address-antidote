@@ -5,8 +5,10 @@
   "description": "Validates Solana and Ethereum addresses when copied",
   "permissions": [
     "storage",
-    "activeTab",
     "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "action": {
     "default_icon": {
