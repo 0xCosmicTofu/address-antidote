@@ -4,8 +4,7 @@
   "version": "1.0",
   "description": "Validates Solana and Ethereum addresses when copied",
   "permissions": [
-    "storage",
-    "scripting"
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"
