@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Address Antidote",
   "version": "1.0",
-  "description": "Validates Solana and Ethereum addresses when copied",
+  "description": "Validates Solana and Ethereum addresses when copied on any website",
   "permissions": [
     "storage"
   ],
