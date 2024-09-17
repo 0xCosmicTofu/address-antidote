@@ -2,8 +2,6 @@
 
 ## Supported Versions
 
-Supports V1.0
-
 | Version | Supported          |
 | ------- | ------------------ |
 | 5.1.x   | :white_check_mark: |
